@@ -144,6 +144,7 @@ const MusicalDetail = styled.div`
         position: relative;
         left: 0%;
         bottom: 0%;
+        cursor: pointer;
     }
 `
 const EventArea = styled.div`

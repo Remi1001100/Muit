@@ -1,77 +1,124 @@
 import styled from "styled-components";
-import SearchRed from "../../../../assets/icons/SearchRed.svg"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+import DaumPostcode from "react-daum-postcode";
+import AddressInput from "../../../../components/signup/addressInput";
+
+import SearchRed from "../../../../assets/icons/SearchRed.svg"
+
 function AddAddress() {
-    const navigate = useNavigate();
-     const [name, setName] = useState("");
-     const [recipient, setRecipient] = useState("");
-     const [phone, setPhone] = useState("");
- 
-     const isFormValid = name.trim() !== "" && recipient.trim() !== "" && phone.trim() !== "";
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [recipient, setRecipient] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
-    const GoBack = () => {
-        navigate(-1);
-    };
-    const CompleteAddAddress = () => {
-        alert("주소가 성공적으로 추가되었습니다.");
-      };
+  const isFormValid = name.trim() !== "" && recipient.trim() !== "" && phone.trim() !== "";
 
-    return (
-        <Container>
-            <InputArea>
-                <p className="body-B-600">배송지명</p>
-                <Input>
-                    <input 
-                        placeholder="예시: 집, 회사"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </Input>
-            </InputArea>
+  const GoBack = () => {
+    navigate(-1);
+  };
 
-            <InputArea>
-                <p className="body-B-600">수령인</p>
-                <Input>
-                    <input 
-                        placeholder="수령인을 입력하세요"
-                        value={recipient}
-                        onChange={(e) => setRecipient(e.target.value)}
-                    />
-                </Input>
-            </InputArea>
+  const CompleteAddAddress = () => {
+    alert("주소가 성공적으로 추가되었습니다.");
+  };
 
-            <InputArea>
-                <p className="body-B-600">주소</p>
-                <div className='address-search'> 
-                    <img src={SearchRed} alt="주소 검색"/> 주소 검색
-                </div>
-            </InputArea>
+  const handleAddress = () => {
+    setIsOpen(true);
+};
 
-            <InputArea>
-                <p className="body-B-600">휴대폰</p>
-                <Input>
-                    <input 
-                        placeholder="휴대폰 번호를 입력하세요"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                    />
-                </Input>
-            </InputArea>
+const handleComplete = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
 
-            <BtnArea>
-                <button onClick={GoBack} className="previous">이전</button>
-                <button 
-                    onClick={CompleteAddAddress}
-                    className="confirm"
-                    disabled={!isFormValid}
-                >
-                    변경
-                </button>
-            </BtnArea>
-        </Container>
-    )
+    if (data.addressType === "R") {
+      if (data.bname) extraAddress += data.bname;
+      if (data.buildingName) extraAddress += extraAddress ? `, ${data.buildingName}` : data.buildingName;
+      fullAddress += extraAddress ? ` (${extraAddress})` : "";
+    }
+
+    setAddress(fullAddress);
+    setIsOpen(false); 
+  };
+
+
+  return (
+    <Container>
+      <InputArea>
+        <p className="body-B-600">배송지명</p>
+        <Input>
+          <input
+            placeholder="예시: 집, 회사"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Input>
+      </InputArea>
+
+      <InputArea>
+        <p className="body-B-600">수령인</p>
+        <Input>
+          <input
+            placeholder="수령인을 입력하세요"
+            value={recipient}
+            onChange={(e) => setRecipient(e.target.value)}
+          />
+        </Input>
+      </InputArea>
+
+      <>
+        <InputArea>
+          <p className="body-B-600">주소</p>
+          {(!address) ? (
+            <div className="address-search" onClick={handleAddress}>
+            <img src={SearchRed} alt="주소 검색" /> 주소 검색
+          </div>
+          ) : (
+            <Input>
+            <input value={address} readOnly placeholder="주소를 선택해주세요."
+              /*{...register("address")}*/ />
+            </Input>
+
+          ) }
+          
+        </InputArea>
+
+        {isOpen && (
+          <ModalBackground onClick={() => setIsOpen(false)}>
+            <ModalContent onClick={(e) => e.stopPropagation()}>
+              <DaumPostcode onComplete={handleComplete} />
+              <CloseButton onClick={() => setIsOpen(false)}>닫기</CloseButton>
+            </ModalContent>
+          </ModalBackground>
+        )}
+
+      </>
+
+      <InputArea>
+        <p className="body-B-600">휴대폰</p>
+        <Input>
+          <input
+            placeholder="휴대폰 번호를 입력하세요"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </Input>
+      </InputArea>
+
+      <BtnArea>
+        <button onClick={GoBack} className="previous">이전</button>
+        <button
+          onClick={CompleteAddAddress}
+          className="confirm"
+          disabled={!isFormValid}
+        >
+          변경
+        </button>
+      </BtnArea>
+    </Container>
+  )
 }
 
 const Container = styled.div`
@@ -199,6 +246,34 @@ const BtnArea = styled.div`
     border: 1px solid var(--Gray-outline, #E6E6E6);
     background: var(--Gray-white-bg, #FFF);
   }  
+`
+const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  text-align: center;
+`
+const CloseButton = styled.button`
+  margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 14px;
+  background: #A00000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 `
 
 export default AddAddress;

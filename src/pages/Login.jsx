@@ -23,6 +23,7 @@ const COLOR_MUIT_RED = "#A00000";
 function Login() {
     const { fetchData } = useCustomFetch();
     const navigate = useNavigate();
+    const [isShowPWChecked, setIsShowPWChecked] = useState(false);
 
     const schema = yup.object().shape({
         id: yup.string().required(),
@@ -34,14 +35,9 @@ function Login() {
         navigate("/signup");
     };
 
-    const [isShowPWChecked, setIsShowPWChecked] = useState(false);
     const passwordRef = useRef(null);
-
-    const handleShowPWChecked = () => {
-        if (!passwordRef.current) return;
-
-        setIsShowPWChecked((prev) => !prev);
-        passwordRef.current.type = isShowPWChecked ? "password" : "text";
+    const handleShowPWChecked = async() => {
+        setIsShowPWChecked(!isShowPWChecked);
     };
 
     const {
@@ -108,12 +104,15 @@ function Login() {
                 </Input>
                 <Input>
                     <input
-                        type="password"
+                        type={(isShowPWChecked) ? "text" : "password"}
                         ref={passwordRef}
                         placeholder="비밀번호"
                         {...register("password")}
                     />
-                    <img src={SeePassword} onClick={handleShowPWChecked} alt="비밀번호 보기" />
+                    <img src={SeePassword} 
+                    onClick={handleShowPWChecked} 
+                    className="seePassword"
+                    alt="비밀번호 보기" />
                 </Input>
 
                 <OptionArea>
@@ -187,6 +186,10 @@ const Input = styled.div`
     background: #FFF;
 
     padding: 8px 20px 8px 20px;
+
+    .seePassword{
+        cursor: pointer;
+    }
 
     input::placeholder{
         color: #919191; 

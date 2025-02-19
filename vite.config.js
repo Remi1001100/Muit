@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      port: 80,
       '/api': {
         target: 'http://localhost:8080',  // 백엔드 서버 주소
         changeOrigin: true,
