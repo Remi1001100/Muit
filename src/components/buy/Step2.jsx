@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import useFetch from "../../hooks/useFetch";
 import { useParams } from 'react-router-dom';
 
-const token = import.meta.env.VITE_APP_ACCESS_TOKEN;
+//import useFetch from "../../hooks/useFetch";
+import useCustomFetch from "../../hooks/useCustomFetch";
+//const token = import.meta.env.VITE_APP_ACCESS_TOKEN;
+const token = localStorage.getItem("accessToken");
+
 
 // Step2 - 할인 선택
 const Step2 = () => {
@@ -13,10 +16,10 @@ const Step2 = () => {
   const navigate = useNavigate();
     
   const url = `/tickets/${amateurId}/ticketInfo`;
-  const { data, error, loading } = useFetch(url, {
-      headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-      },
+  const { data, error, loading } = useCustomFetch(url, {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
   });
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>데이터를 불러오는 데 문제가 발생했습니다.</div>;

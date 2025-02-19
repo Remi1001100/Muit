@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useNavigate, useParams } from 'react-router-dom';
 
 
-const token = import.meta.env.VITE_APP_ACCESS_TOKEN;
+// const token = import.meta.env.VITE_APP_ACCESS_TOKEN;
+const token = localStorage.getItem("accessToken");
 
 const Step4 = () => {
   const navigate = useNavigate();

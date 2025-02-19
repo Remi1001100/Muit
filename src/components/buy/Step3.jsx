@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import useFetch from "../../hooks/useFetch";
 import { useParams } from 'react-router-dom';
 
-const token = import.meta.env.VITE_APP_ACCESS_TOKEN;
+//import useFetch from "../../hooks/useFetch";
+import useCustomFetch from "../../hooks/useCustomFetch";
+//const token = import.meta.env.VITE_APP_ACCESS_TOKEN;
+const token = localStorage.getItem("accessToken");
+
 
 // Step3 - 배송 선택 및 주문자 확인
 const Step3 = () => {
@@ -12,10 +15,10 @@ const Step3 = () => {
   const navigate = useNavigate();
   
   const url = `/tickets/${amateurId}/ticketInfo`;
-  const { data, error, loading } = useFetch(url, {
-      headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-      },
+  const { data, error, loading } = useCustomFetch(url, {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
   });
 
   if (loading) return <div>로딩 중...</div>;

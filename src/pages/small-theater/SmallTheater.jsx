@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import useCustomFetch from "../../hooks/useCustomFetch";
 //const token = import.meta.env.VITE_APP_ACCESS_TOKEN;
 const token = localStorage.getItem("accessToken");
-console.log('불러온 토큰:', token);
 
 
 const SmallTheater = () => {

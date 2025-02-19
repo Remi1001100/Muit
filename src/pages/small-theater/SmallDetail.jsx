@@ -8,8 +8,10 @@ import DetailImg from "../../assets/images/lost-detail.png";
 import CastList from "../../components/small-theater/CastList";
 import CreditInfo from "../../components/small-theater/CreditInfo";
 import { useNavigate, useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";  
-const token = import.meta.env.VITE_APP_ACCESS_TOKEN;
+//import useFetch from "../../hooks/useFetch";
+import useCustomFetch from "../../hooks/useCustomFetch";
+//const token = import.meta.env.VITE_APP_ACCESS_TOKEN;
+const token = localStorage.getItem("accessToken");
 
 
 function SmallDetail() {
@@ -19,7 +21,7 @@ function SmallDetail() {
   console.log(amateurId);
   const url = `/amateurs/${amateurId}`;
 
-  const { data, error, loading } = useFetch(url, {
+  const { data, error, loading } = useCustomFetch(url, {
     headers: {
       Authorization: token ? `Bearer ${token}` : "",
     },
@@ -103,8 +105,7 @@ function SmallDetail() {
         <Title>공연시간 정보</Title>
         <Text>{musical.timeInfo}</Text>
         <Title>공지사항</Title>
-        <Text>예매시에 공연 관리자가 안내하는 입금계좌로 입금하시고, 공연 관리자의 입금 확인을 통해 티켓 예매 확인을 받을 수<br/>
-        있습니다. 공연 관리자가 입금을 확인해야 하므로 티켓 확인까지 시간이 걸릴 수 있습니다.</Text>
+        <Text> {musical.notice.conten}</Text>
         </Label>
         {imageUrls && imageUrls.length > 0 && (
   <DetailImageWrapper>
