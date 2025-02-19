@@ -31,6 +31,8 @@ const SearchResultDetail = ({ id, theatreName, address, theatrePic, onClick }) =
 export default SearchResultDetail;
 
 const Container = styled.div`
+    position: absolute;
+
     margin-bottom: 8px;
     font-family: Pretendard;
     display: flex;

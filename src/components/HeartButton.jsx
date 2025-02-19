@@ -8,7 +8,7 @@ import { useState } from "react";
 const muit_server = import.meta.env.VITE_APP_SERVER_URL;
 const token = localStorage.getItem("accessToken");
 console.log(token);
-const HeartButton = ({liked, setLiked, musicalId}) => {
+const HeartButton = ({liked, setLiked, musicalId, width}) => {
 
   const [isClicked, setIsClicked] = useState(false);
   
@@ -77,6 +77,7 @@ const HeartButton = ({liked, setLiked, musicalId}) => {
         }
       }}
       style={{ cursor: "pointer" }}
+      width={width}
     />
   );
 };
@@ -86,4 +87,5 @@ export default HeartButton;
 const Img = styled.img`
   transition: transform 0.2s ease;  // 부드러운 전환
   transform: ${(props) => (props.isClicked ? 'scale(1.1)' : 'scale(1)')};
-`;
+  width: ${(props) => props.width ? props.width: null};
+  `;

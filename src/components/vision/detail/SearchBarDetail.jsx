@@ -67,8 +67,9 @@ const SearchBarDetail = () => {
             {!loading && !error && result.length === 0 && debouncedValue && (
               <p>검색 결과가 없습니다.</p>
             )}
-
-            {result.length > 0 && <p className="result-length">검색 결과 {result.length}건</p>}
+            <div className="result-length-area">
+              {result.length > 0 && <p className="result-length">검색 결과 {result.length}건</p>}
+            </div>
             {result.length > 0 && result.map((theatre) => (
               <SearchResultDetail
                 key={theatre?.id}
@@ -93,15 +94,16 @@ const Overlay = styled.div`
       width: 100vw;
       height: 100vh;
       background-color: rgba(0, 0, 0, 0.5);
-      z-index: 999;
+      z-index: 997;
   `
 
 const SearchWrapper = styled.div`
+    //position: fixed;
     position: relative;
-    left: 100px;
-    
+    margin-left: 100px;
+
     width: 508px;
-    z-index: 1000;
+    z-index: 998;
   `
 
 const Search = styled.form`
@@ -148,6 +150,14 @@ const Result = styled.div`
     padding: 12px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1001;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .result-length-area{
+      height: 50px;
+    }
 
     .result-length {
       margin: 0px 0px 12px 0px;

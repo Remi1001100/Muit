@@ -4,13 +4,14 @@ import SearchBarDetail from "../components/vision/detail/SearchBarDetail";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-const VisionDetailMain = ({theatreId}) => {
-    //const { theatreId } = useParams();
-    const id = Number(theatreId);
+const VisionDetailMain = ({ theatreId: externalId }) => {
+    const { theatreId: paramTheatreId } = useParams();
+    const id = externalId !== undefined ? Number(externalId) : Number(paramTheatreId);
+
     return(
         <Container>
             <SearchBarDetail/>
-
+            
             {id === 1 && <VisionDetailBS theatreId={1}/>}
             {id === 7 && <VisionDetailCL theatreId={7}/>}        
         </Container>

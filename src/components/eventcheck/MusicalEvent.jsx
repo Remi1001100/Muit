@@ -7,8 +7,7 @@ import Heart from "../../assets/icons/heart-line.svg";
 import HeartFull from "../../assets/icons/heart-full.svg"
 import formatDate from "../../utils/formatDate";
 import { useEffect, useState } from "react";
-
-
+import HeartButton from "../HeartButton";
 const MusicalEvent = (props) => {
     const navigate = useNavigate();
     const { fetchData } = useCustomFetch();
@@ -64,11 +63,12 @@ const MusicalEvent = (props) => {
                             <p className="body-M-500">{formatDate(props.begin)}~{formatDate(props.end)}</p>
                         </div>
                     </div>
-                    {isLike ? (
+                    <HeartButton setLiked={setIsLike} liked={isLike} musicalId={props.id} width='36px' />
+                    {/*isLike ? (
                         <img className="heart-icon" src={HeartFull} onClick={cancelLike} />
                     ) : (
                         <img className="heart-icon" src={Heart} onClick={addLike} />
-                    )}                
+                    )*/}                
                 </MusicalDetail>
             </MusicalInfo>
             <EventArea>

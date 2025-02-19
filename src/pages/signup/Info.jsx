@@ -606,7 +606,6 @@ const ModalBackground = styled.div`
   justify-content: center;
   align-items: center;
 `
-
 const ModalContent = styled.div`
   background: white;
   padding: 20px;
@@ -614,7 +613,6 @@ const ModalContent = styled.div`
   width: 400px;
   text-align: center;
 `
-
 const CloseButton = styled.button`
   margin-top: 10px;
   padding: 5px 10px;

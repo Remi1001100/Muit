@@ -5,6 +5,7 @@ const SeatView = (props) => {
     const { data, error, loading } = useCustomFetch(
         `/theatres/${props.theatreId}/sectionType?sectionType=${props.area}`
     );
+    console.log(data);
 
     return (
         <View>
@@ -26,8 +27,13 @@ const SeatView = (props) => {
 }
 
 const View = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
     .view-img{
         width: 400px;
+        margin-top: 8px;
     }
     .feature{
         display: flex;

@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import useCustomFetch from "../../../hooks/fetchWithAxios";
 
 import Plus from "../../../assets/icons/Plus.svg"
 import Authenticate from "../../../components/mypage/account/Authenticate";
-import { useNavigate } from "react-router-dom";
+
 
 function AddressManagement() {
+  const memberId = localStorage.getItem("userId");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   const navigate = useNavigate();
+  
+  const {data: info, error, loading} = useCustomFetch(`/member/${memberId}`);
+  console.log(info);
+
   const handleAddAddress = () => {
     navigate("/mypage/account/address/add-address");
   };

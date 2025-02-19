@@ -18,14 +18,13 @@ import SmallDetail from "./pages/small-theater/SmallDetail";
 import BuyTicket from "./pages/small-theater/BuyTicket";
 import Board from "./pages/board/Board";
 import VisionDetailMain from "./pages/VisionDetail";
-import VisionDetailLotte from "./pages/vision/VisionDetailLotte";
-import VisionDetailBS from "./pages/vision/VisionDetailBlueSquare";
 import ItemPost from "./pages/board/post/ItemPost";
 import FoundPost from "./pages/board/post/FoundPost";
 import AnonymousPost from "./pages/board/post/AnonymousPost";
 import ReviewPost from "./pages/board/post/ReviewPost";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import GoogleRedirect from "./pages/signup/redirect/googleRedirect";
 import Terms from "./pages/signup/Terms"
 import Info from "./pages/signup/Info";
 import Complete from "./pages/signup/Complete";
@@ -73,6 +72,7 @@ import AdminSmallRefundDetail from "./pages/adminpage/small-theater/refund/Admin
 import ItemPostEdit from "./pages/board/edit/ItemPostEdit";
 import AnonymousPostEdit from './pages/board/edit/AnonymousPostEdit';
 import ReviewPostEdit from "./pages/board/edit/ReviewPostEdit";
+
 function App() {
   return (
     
@@ -91,7 +91,6 @@ function App() {
         <Route path="/vision" element={<Vision />} />
         {/* 3-1) 시야확인 상세 */}
         <Route path="/vision/:theatreId" element={<VisionDetailMain />} />
-        {/*<Route path="/vision/7" element={<VisionDetailLotte />} />*/}
 
         {/* 4) 소극장 공연 */}
         <Route path="/small-theater" element={<SmallTheater />} />
@@ -131,6 +130,7 @@ function App() {
         
         {/* 9) 로그인/회원가입 */}
         <Route path="/login" element={<Login />} />
+        <Route path="/google-redirect" element={<GoogleRedirect />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signup/terms" element={<Terms/>}/>
         <Route path="/signup/info" element={<Info/>}/>

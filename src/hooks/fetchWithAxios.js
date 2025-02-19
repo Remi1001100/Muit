@@ -10,7 +10,6 @@ const useCustomFetch = (url, method = "GET", body = null) => {
         if (!customUrl) return;
         setLoading(true);
         setError(false);
-
         try {
             const token = localStorage.getItem("accessToken");
             const response = await axiosInstance({
