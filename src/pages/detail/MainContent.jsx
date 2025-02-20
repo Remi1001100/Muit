@@ -99,15 +99,20 @@ function MainContent({data,loading, error}) {
           </CalendarWrapper>
 
           <EventLink style={{ transform: "scale(0.8)", transformOrigin: "top left" }}>
-            {event?.result?.eventResultListDTO.map((musical)=>(
-              <EventContent
+              {event?.result?.eventResultListDTO?.map((musical, index, arr) => {
+                const isLast = index === arr.length - 1;
+                return (
+                  <EventContent
                     key={musical.id}
                     content={musical.name}
                     startAt={musical.evFrom}
                     finishAt={musical.evTo}
                     duration={musical.duration}
-                    />
-              ))}
+                    isLast={isLast}
+                  />
+                );
+              })}
+
 
             <Text onClick={() => navigate(`/event-check/${data?.result?.id}`)}>
               <p>이벤트 확인하기</p><img src={ChevronRight} />

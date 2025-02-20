@@ -14,9 +14,11 @@ import AddAddress from "./account/Edit/AddAddress";
 import LoginManagement from "./account/LoginManagement";
 import SupportContact from "./support/SupportContact";
 import AllBoard from './../board/anonymous/HotBoard';
+import useCustomFetch from "../../hooks/fetchWithAxios";
 
 function MyPage() {
   const { category, type, field } = useParams();
+  const memberId = localStorage.getItem("userId");
 
   const navigate = useNavigate();
   const menus = [
@@ -61,13 +63,16 @@ function MyPage() {
     contact: "1:1 문의",
   };
 
+  const {data: info, error, loading} = useCustomFetch(`/member/${memberId}`);
+  console.log(info?.result);
+
 
   return (
     <MyPageWrapper>
       <Aside>
         <div>
-          <User>최윤경님</User>
-          <Id>rose06166</Id>
+          <User>{info?.result?.name}</User>
+          <Id>{info?.result?.username}</Id>
           <BoardMenu 
             menus={menus} 
             defaultColor="#000" 

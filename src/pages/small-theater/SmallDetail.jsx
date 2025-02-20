@@ -63,7 +63,7 @@ function SmallDetail() {
   return (
     <>
       {/*빨간배너 */}
-       <BannerContainer>
+       <BannerContainer poster={poster}>
                 <Header>{name}</Header>
                 <TagWrapper>
              {musical.hashtag
@@ -105,7 +105,7 @@ function SmallDetail() {
         <Title>공연시간 정보</Title>
         <Text>{musical.timeInfo}</Text>
         <Title>공지사항</Title>
-        <Text> {musical.notice.conten}</Text>
+        <Text> {musical.notice.content}</Text>
         </Label>
         {imageUrls && imageUrls.length > 0 && (
   <DetailImageWrapper>

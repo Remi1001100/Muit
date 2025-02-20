@@ -1,61 +1,37 @@
 import React from "react";
 import styled from "styled-components";
-import YubinImage from "../../assets/images/amateur-actor/yubin.png";
-import HyeokjinImage from "../../assets/images/amateur-actor/hyeokjin.png";
-import SeungjaeImage from "../../assets/images/amateur-actor/seungjae.png";
-import JihwooImage from "../../assets/images/amateur-actor/jihwoo.png";
-import SeungminImage from "../../assets/images/amateur-actor/seungmin.png";
-import SeoyeonImage from "../../assets/images/amateur-actor/seoyeon.png";
+import { useNavigate, useParams } from "react-router-dom";
+import useCustomFetch from "../../hooks/useCustomFetch";
+
+const token = localStorage.getItem("accessToken");
 
 function CastList() {
-  const mockData = [
-    {
-      id: 1,
-      name: "임유빈",
-      image: YubinImage,
-      info: "학생 1",
+  const { amateurId } = useParams();
+  
+  const url = `/amateurs/${amateurId}`;
+
+  const { data, error, loading } = useCustomFetch(url, {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
     },
-    {
-      id: 2,
-      name: "권혁진",
-      image: HyeokjinImage,
-      info: "5급",
-    },
-    {
-      id: 3,
-      name: "이승재",
-      image: SeungjaeImage,
-      info: "6급",
-    },
-    {
-      id: 4,
-      name: "이지후",
-      image: JihwooImage,
-      info: "7급",
-    },
-    {
-      id: 5,
-      name: "백승민",
-      image: SeungminImage,
-      info: "학생 2",
-    },
-    {
-      id: 6,
-      name: "이서연",
-      image: SeoyeonImage,
-      info: "학생 2",
-    },
-  ];
+  });
+
+  // 로딩 상태 처리
+  if (loading) return <div>Loading...</div>;
+  if (error || !data) return <div>데이터를 불러오지 못했습니다.</div>;
+
+  // 캐스팅 정보 추출
+  const castings = data.result.castings;
 
   return (
     <ActorsWrapper>
-      {mockData.map((actor) => (
-        <Actor key={actor.id}>
+      {castings.map((casting, index) => (
+        <Actor key={index}>
           <ProfileWrapper>
-            <img src={actor.image} alt={actor.name} />
+            <img src={casting.imgUrl} alt={casting.actorName} />
           </ProfileWrapper>
-          <ActorName>{actor.name}</ActorName>
-          <ActorInfo>{actor.info}</ActorInfo>
+          <ActorName>{casting.actorName}</ActorName>
+          <ActorInfo>{casting.castingName}</ActorInfo>
         </Actor>
       ))}
     </ActorsWrapper>

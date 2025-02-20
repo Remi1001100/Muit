@@ -1,11 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Step5=()=>{
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/mypage/my/tickets");
+  };
+
 return(
 <Container>
     <Booked>예약 신청이 완료되었습니다!</Booked>
-    <BookedState>예약현황 보러가기</BookedState>
+    <BookedState onClick={handleNavigate} >예약현황 보러가기</BookedState>
 </Container>
 );
 }
@@ -49,6 +56,7 @@ gap: 10px;
 border-radius: 3px;
 border: 1px solid var(--Gray-outline, #E6E6E6);
 background: var(--Gray-white-bg, #FFF);
+cursor:pointer;
 
 /* Body-me */
 font-family: Pretendard;

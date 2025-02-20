@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import ArrowPrevIcon from '../assets/icons/ArrowPrev.svg';
 import ArrowNextIcon from '../assets/icons/ArrowNext.svg';
+import useCustomFetch from "../hooks/fetchWithAxios";
 import Upcoming from "./Upcoming";
 
 // 색상, 폰트 상수, 레이아웃 (디자인 가이드)
@@ -64,7 +65,7 @@ function Home() {
   // 오픈예정 
   const fetchTicketOpen = async () => {
     try {
-      const response = await axios.get(`${baseURL}/musicals/open`, {
+      const response = await useCustomFetch(`${baseURL}/musicals/open`, {
         headers: {
           Authorization: `Bearer ${token}`,
         }

@@ -83,6 +83,7 @@ function EventCheck() {
                   begin={musical.perFrom}
                   end={musical.perTo}
                   event={musical.eventResultListDTO}
+                  count={musical.eventResultListDTO.length+1}
                 />
               ))}
             </>

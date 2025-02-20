@@ -38,7 +38,7 @@ const Step1 = () => {
         <RightSection>
           <Header>{ticketInfo.name}</Header>
           <Location>{ticketInfo.place}</Location>
-          <Duration>{ticketInfo.schedule}</Duration>
+          {/* <Duration>{ticketInfo.schedule}</Duration> */}
           <Border/>
           <Info>
             <TicketDetails>
@@ -106,7 +106,7 @@ font-size: 24px;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
-margin-bottom: 25px;
+margin-bottom: 20px;
 `;
 const Location = styled.div`
 color: #000;

@@ -23,4 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 .env
-muit_front_key.pem

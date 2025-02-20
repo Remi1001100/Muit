@@ -15,7 +15,7 @@ const RegisterMusical = () => {
   const [castingImages, setCastingImages] = useState([]);
   const [noticeImages, setNoticeImages] = useState([]);
   const [castings, setCastings] = useState([
-    { name: '', role: '', image: null },
+    { name: '', role: ''},
   ]);  
   const [formData, setFormData] = useState({
     name: "",
@@ -72,25 +72,22 @@ const RegisterMusical = () => {
     const file = e.target.files[0];
     if (!file) return;
   
-    // 이미지 파일 상태 갱신
     const newImages = [...castingImages];
     newImages[index] = file;
     setCastingImages(newImages);
-  
-    // castings 상태에 이미지 반영 (미리보기용)
-    const updatedCastings = [...castings];
-    updatedCastings[index] = { ...updatedCastings[index], image: file };
-    setCastings(updatedCastings);
   };
+  
   
   const handleCastingImageClick = (index) => {
     document.getElementById(`castingImageUploadInput-${index}`).click();
   };
-
+  
   /*캐스팅 정보 추가하기*/
   const handleAddCasting = () => {
-    setCastings([...castings, { name: '', role: '', image: null }]);
+    setCastings([...castings, { name: '', role: '' }]);
+    setCastingImages([...castingImages, null]);
   };
+  
   
   const handleCastingChange = (index, field, value) => {
     const updatedCastings = [...castings];
@@ -347,46 +344,47 @@ const RegisterMusical = () => {
   <SectionTitle>캐스팅정보</SectionTitle>
   <CastingWrapperContainer>
   {castings.map((casting, index) => (
-    <CastingWrapper key={index}>
-      <Left>
-        <img
-          src={
-            casting.image
-              ? URL.createObjectURL(casting.image)
-              : CastingPictureIcon
-          }
-          alt="Casting Icon"
-          width="140"
-          height="140"
-          onClick={() => handleCastingImageClick(index)}
-          style={{ cursor: 'pointer' }}
-        />
-        <input
-          type="file"
-          id={`castingImageUploadInput-${index}`}
-          style={{ display: 'none' }}
-          accept="image/*"
-          onChange={(e) => handleCastingImageUpload(e, index)}
-        />
-        <CastingInfo
-          type="text"
-          placeholder="이름"
-          value={casting.name}
-          onChange={(e) =>
-            handleCastingChange(index, 'name', e.target.value)
-          }
-        />
-        <CastingInfo
-          type="text"
-          placeholder="역할"
-          value={casting.role}
-          onChange={(e) =>
-            handleCastingChange(index, 'role', e.target.value)
-          }
-        />
-      </Left>
-    </CastingWrapper>
-  ))}
+  <CastingWrapper key={index}>
+    <Left>
+      <img
+        src={
+          castingImages[index]
+            ? URL.createObjectURL(castingImages[index])
+            : CastingPictureIcon
+        }
+        alt="Casting Icon"
+        width="140"
+        height="140"
+        onClick={() => handleCastingImageClick(index)}
+        style={{ cursor: 'pointer' }}
+      />
+      <input
+        type="file"
+        id={`castingImageUploadInput-${index}`}
+        style={{ display: 'none' }}
+        accept="image/*"
+        onChange={(e) => handleCastingImageUpload(e, index)}
+      />
+      <CastingInfo
+        type="text"
+        placeholder="이름"
+        value={casting.name}
+        onChange={(e) =>
+          handleCastingChange(index, 'name', e.target.value)
+        }
+      />
+      <CastingInfo
+        type="text"
+        placeholder="역할"
+        value={casting.role}
+        onChange={(e) =>
+          handleCastingChange(index, 'role', e.target.value)
+        }
+      />
+    </Left>
+  </CastingWrapper>
+))}
+
 
   <AddCastingButtonWrapper>
     <AddCastingButton onClick={handleAddCasting}>

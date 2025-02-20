@@ -39,7 +39,7 @@ const Step2 = () => {
             <LeftContent>
           <Title>{ticketInfo.name}</Title>
           <Subtitle>{ticketInfo.place}</Subtitle>
-          <DateRange>{ticketInfo.schedule}</DateRange>
+          {/* <DateRange>{ticketInfo.schedule}</DateRange> */}
           <DiscountBox>
             <DiscountTitle>할인 선택</DiscountTitle>
             <Options>

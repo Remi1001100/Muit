@@ -13,7 +13,7 @@ function AddressManagement() {
   const navigate = useNavigate();
   
   const {data: info, error, loading} = useCustomFetch(`/member/${memberId}`);
-  console.log(info);
+  console.log(info?.result);
 
   const handleAddAddress = () => {
     navigate("/mypage/account/address/add-address");
@@ -30,7 +30,7 @@ function AddressManagement() {
               <div className="address">
                 <span>집</span>
                 <span>|</span>
-                <span>서울특별시 용산구 청파로47길 100</span>
+                <span>{info?.result?.address}</span>
               </div>
             </Input>
           </InputArea>
@@ -41,7 +41,7 @@ function AddressManagement() {
               <div className="address">
                 <span>회사</span>
                 <span>|</span>
-                <span>서울특별시 용산구 청파로47길 100</span>
+                <span>{info?.result?.address}</span>
               </div>
               <EditButton>기본 배송지로 등록</EditButton>
             </Input>
